@@ -1,12 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Delivery.Core.Models;
+using Delivery.DataAccess.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Delivery.DataAccess.Configurations
 {
-    internal class LogConfiguration
+    public class LogConfiguration : IEntityTypeConfiguration<LogEntity>
     {
+        public void Configure(EntityTypeBuilder<LogEntity> builder)
+        {
+            builder
+                .HasKey(l => l.Id);
+
+            builder
+                .Property(l => l.Type)
+                .IsRequired();
+
+            builder
+                .Property(l => l.WhereFrom)
+                .HasMaxLength(Log.MAX_WHEREFROM_LENGTH)
+                .IsRequired();
+
+            builder
+                .Property(l => l.Message)
+                .HasMaxLength(Log.MAX_MESSAGE_LENGTH)
+                .IsRequired();
+
+            builder
+                .Property(l => l.DateTime)
+                .IsRequired();
+        }
     }
 }

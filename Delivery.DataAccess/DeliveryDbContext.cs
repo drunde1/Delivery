@@ -1,4 +1,5 @@
-﻿using Delivery.DataAccess.Entities;
+﻿using Delivery.DataAccess.Configurations;
+using Delivery.DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Delivery.DataAccess
@@ -11,14 +12,15 @@ namespace Delivery.DataAccess
 
         }
 
-        DbSet<FilterEntity> Filters { get; set; }
-        DbSet<OrderEntity> Orders { get; set; }
-        DbSet<LogEntity> Logs { get; set; }
+        public DbSet<FilterEntity> Filters { get; set; }
+        public DbSet<OrderEntity> Orders { get; set; }
+        public DbSet<LogEntity> Logs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new TangerineConfiguration());
-            modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new OrderConfiguration());
+            modelBuilder.ApplyConfiguration(new FilterConfiguration());
+            modelBuilder.ApplyConfiguration(new LogConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }
