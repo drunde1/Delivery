@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Delivery.DataAccess.Reposetories
 {
-    public class OrdersFiltersRepository : IOrdersFiltersRepository
+    public class OrdersFiltersReposetory : IOrdersFiltersReposetory
     {
         private readonly DeliveryDbContext _context;
 
-        public OrdersFiltersRepository(DeliveryDbContext context)
+        public OrdersFiltersReposetory(DeliveryDbContext context)
         {
             _context = context;
         }
@@ -41,12 +41,26 @@ namespace Delivery.DataAccess.Reposetories
             return orders;
         }
 
-        public async Task CreateFilter(Filter filter)
+        public async Task<bool> GetFilter(string district, DateTime firstDeliveryTime)
+        {
+            var filterEntity = await _context.Filters
+                .AsNoTracking()
+                .FirstOrDefaultAsync(f => f.District == district &&
+                    f.FirstDeliveryTime == firstDeliveryTime);
+
+            if (filterEntity == null)
+                return false;
+
+            return true;
+            
+        }
+
+        public async Task CreateFilter(string district, DateTime firstDeliveryTime)
         {
             var filterEntity = new FilterEntity
             {
-                District = filter.District,
-                FirstDeliveryTime = filter.FirstDeliveryTime
+                District = district,
+                FirstDeliveryTime = firstDeliveryTime,
             };
 
             await _context.Filters.AddAsync(filterEntity);

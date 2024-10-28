@@ -3,11 +3,11 @@ using Delivery.DataAccess.Entities;
 
 namespace Delivery.DataAccess.Reposetories
 {
-    public class LogReposetory
+    public class LogReposetory : ILogReposetory
     {
         private readonly DeliveryDbContext _context;
 
-        public LogReposetory(DeliveryDbContext context) 
+        public LogReposetory(DeliveryDbContext context)
         {
             _context = context;
         }

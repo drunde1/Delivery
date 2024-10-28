@@ -2,11 +2,12 @@
 
 namespace Delivery.DataAccess.Reposetories
 {
-    public interface IOrdersFiltersRepository
+    public interface IOrdersFiltersReposetory
     {
-        Task CreateFilter(Filter filter);
+        Task CreateFilter(string district, DateTime firstDelivetytime);
         Task<List<Order>> Get();
         Task<List<Order>> GetFiltered(string district, DateTime deliveryTime);
         Task UpdateFilter(string district, DateTime firstDelivetytime, List<Order> orders);
+        Task<bool> GetFilter(string district, DateTime firstDeliveryTime);
     }
 }

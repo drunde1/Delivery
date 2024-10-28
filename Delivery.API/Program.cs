@@ -21,7 +21,7 @@ namespace Delivery.API
                    options.UseNpgsql(builder.Configuration.GetConnectionString(nameof(DeliveryDbContext)));
                });
 
-            builder.Services.AddScoped<IOrdersFiltersRepository, OrdersFiltersRepository>();
+            builder.Services.AddScoped<IOrdersFiltersReposetory, OrdersFiltersReposetory>();
 
             var app = builder.Build();
 
