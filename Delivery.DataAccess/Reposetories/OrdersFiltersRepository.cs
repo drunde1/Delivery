@@ -50,6 +50,7 @@ namespace Delivery.DataAccess.Reposetories
             };
 
             await _context.Filters.AddAsync(filterEntity);
+            await _context.SaveChangesAsync();
         }
 
         public async Task UpdateFilter(string district, DateTime firstDelivetytime, List<Order> orders)
