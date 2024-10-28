@@ -1,4 +1,5 @@
 
+using Delivery.Application.Services;
 using Delivery.DataAccess;
 using Delivery.DataAccess.Reposetories;
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +23,8 @@ namespace Delivery.API
                });
 
             builder.Services.AddScoped<IOrdersFiltersReposetory, OrdersFiltersReposetory>();
+            builder.Services.AddScoped<ILogReposetory, LogReposetory>();
+            builder.Services.AddScoped<IOrdersService, OrdersService>();
 
             var app = builder.Build();
 

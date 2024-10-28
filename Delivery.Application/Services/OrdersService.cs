@@ -43,17 +43,17 @@ namespace Delivery.Application.Services
 
             var orders = await _orderReposetory.GetFiltered(district, firstDeliveryTime);
 
-            if (await _orderReposetory.GetFilter(district, firstDeliveryTime))
+            if (!await _orderReposetory.GetFilter(district, firstDeliveryTime))
             {
                 await _orderReposetory.CreateFilter(district, firstDeliveryTime);
+                await _orderReposetory.UpdateFilter(district, firstDeliveryTime, orders);
+
                 await _logReposetory.Create(Log.Create(
                     Guid.NewGuid(),
                     "Warning",
                     "Delivery.Application.Services.OrdersService.GetFiltered",
                     $"Филтрация {district} - {firstDeliveryTime.ToString("yyyy-mm-dd hh:mm:ss")} сохранена").Log);
             }
-
-            await _orderReposetory.UpdateFilter(district, firstDeliveryTime, orders);
 
             return orders;
         }

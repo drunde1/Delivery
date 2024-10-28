@@ -29,7 +29,7 @@ namespace Delivery.DataAccess.Reposetories
         public async Task<List<Order>> GetFiltered(string district, DateTime deliveryTime)
         {
             var orderEntities = await _context.Orders
-               .Where(o => o.District == district && o.DeliveryTime == deliveryTime)
+               .Where(o => o.District == district && o.DeliveryTime >= deliveryTime && o.DeliveryTime <= deliveryTime.AddMinutes(30))
                .OrderBy(o => o.DeliveryTime)
                .AsNoTracking()
                .ToListAsync();
@@ -78,11 +78,14 @@ namespace Delivery.DataAccess.Reposetories
                     DeliveryTime = firstDelivetytime
                 })
                 .ToList();
+            var filterEntity = await _context.Filters
+                .Include(f => f.Orders)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(f => f.District == district && f.FirstDeliveryTime == firstDelivetytime);
 
-            await _context.Filters
-                .Where(f => f.District == district && f.FirstDeliveryTime == firstDelivetytime)
-                .ExecuteUpdateAsync(s => s
-                    .SetProperty(f => f.Orders, f => orderEntities));
+            filterEntity!.Orders = orderEntities;
+
+            await _context.SaveChangesAsync();
         }
     }
 }

@@ -113,3 +113,5 @@ C:\Users\andre\Projects\Delivery\Delivery.API\obj\Debug\net8.0\refint\Delivery.A
 C:\Users\andre\Projects\Delivery\Delivery.API\obj\Debug\net8.0\Delivery.API.pdb
 C:\Users\andre\Projects\Delivery\Delivery.API\obj\Debug\net8.0\Delivery.API.genruntimeconfig.cache
 C:\Users\andre\Projects\Delivery\Delivery.API\obj\Debug\net8.0\ref\Delivery.API.dll
+C:\Users\andre\Projects\Delivery\Delivery.API\bin\Debug\net8.0\Delivery.Application.dll
+C:\Users\andre\Projects\Delivery\Delivery.API\bin\Debug\net8.0\Delivery.Application.pdb
